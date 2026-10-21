@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         키오스크 자동 입력
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @author       JKAKK
 // @match        https://kio.ac/*
 // @updateURL    https://raw.githubusercontent.com/junsarakill/jk-auto-kiosk-pass/main/JKAKP.user.js
@@ -16,9 +16,12 @@
     const targetValue = "somisoft";
 
     // 자동 클릭 여부를 결정하는 플래그
-    const shouldSubmit = true;
+    const enableSubmitFunc = true;
 
-    // 타임아웃 설정 (밀리초 단위, 예: 10초 = 10000)
+    /**
+     * #### 최대 탐지 시간 | 단위 ms
+     * @type {number} 
+     */
     const timeoutLimit = 10000; 
     const intervalTime = 300;
     let elapsedTime = 0;
@@ -41,7 +44,7 @@
             inputField.dispatchEvent(new Event('change', { bubbles: true }));
 
             // 플래그가 true일 경우에만 확인 버튼 클릭 수행
-            if (shouldSubmit)
+            if (enableSubmitFunc)
             {
                 // 약간의 딜레이를 주어 입력 이벤트가 완전히 반영된 후 버튼을 클릭하도록 함
                 setTimeout(() =>
